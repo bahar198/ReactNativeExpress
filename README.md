@@ -1,3 +1,9 @@
+#upgrade to ts-node 10.9.2 
+
+if u faced any error about :TSError: ⨯ Unable to compile TypeScript:
+[0] error TS6053: File 'expo/tsconfig.base' not found.
+u need to run this command to upgrade higher version of node :npm install ts-node@10.9.2
+
 # Drawer-Navigation-Expo-Router
 
 ![Image](https://cdn.dribbble.com/userupload/12370952/file/original-ad0b724507af298d3db665074b2b9d29.png?resize=1024x768)
