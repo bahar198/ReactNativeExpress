@@ -14,6 +14,7 @@ const apiRequest = async (
   }
 ) => {
   const token = Cookies.get(BROWSER_AUTH_COOKIE);
+  console.log("token", BROWSER_AUTH_COOKIE);
   const optionsConfig: any = {
     method: args?.method ? args.method : "get",
     credentials: "include",
@@ -38,6 +39,7 @@ const apiRequest = async (
 
   try {
     const request = await fetch(`/api/${url}`, optionsConfig).catch((err) => {
+      console.log("error:", err);
       return err;
     });
 

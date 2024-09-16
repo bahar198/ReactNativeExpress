@@ -5,8 +5,7 @@ import { hashPassword } from "../../utils/auth";
 export const signup = async (req: Request, res: Response) => {
   const { userName, Email, password } = req.body;
   const encryptedpassword = hashPassword(password);
-  console.log("here in query");
-
+  console.log("query");
   try {
     const signupuser = await prisma.user.create({
       data: {

@@ -7,10 +7,13 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import { Button } from "@rneui/themed";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useApi from "../../hooks/useApi";
+import { useUIStore } from "../../state";
+import Notification from "../../components/Notification";
 interface Input {
   userName: string;
   Email: string;
@@ -21,13 +24,18 @@ export default function Signup() {
   const { post } = useApi();
   const password = watch("password");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const setNotification = useUIStore(({ setNotification }) => setNotification);
 
   const onSubmit: SubmitHandler<Input> = async ({
     userName,
     Email,
     password,
   }) => {
-    const result = await post("/user/signup", { userName, Email, password });
+    const result = await post("user/signup", { userName, Email, password });
+    console.log(result);
+    if (result.success) {
+      setNotification("Success", `Flyer edited successfully`, "success");
+    } else setNotification("Error", `Error editing flyer`, "danger");
     return;
   };
   const handleConfirmPasswordChange = (
@@ -104,9 +112,25 @@ export default function Signup() {
               )}
             </View>
 
-            <button style={styles.btn} type="submit">
-              Get Started
-            </button>
+            <Button
+              title="SIGN UP"
+              iconContainerStyle={{ marginRight: 10 }}
+              titleStyle={{ fontWeight: "700" }}
+              buttonStyle={{
+                backgroundColor: "rgba(90, 154, 230, 1)",
+                borderColor: "transparent",
+                borderWidth: 0,
+                borderRadius: 30, // Set borderRadius to 0 to remove the rounded corners
+                paddingVertical: 15, // Adjust the vertical padding to increase the button height
+              }}
+              containerStyle={{
+                width: "100%", // Set the width to 100% to cover the whole page width
+                marginHorizontal: 0, // Remove horizontal margin
+                marginVertical: 0, // Remove vertical margin
+              }}
+              onPress={handleSubmit(onSubmit)}
+            />
+            <Notification />
           </form>
         </KeyboardAwareScrollView>
 

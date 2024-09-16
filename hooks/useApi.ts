@@ -67,7 +67,7 @@ function useApi() {
         method: "POST",
       });
       setLoading(false);
-      console.log("useApi", request);
+
       if (request.error) {
         if (request.error === "TOKEN_IS_MISSING") {
           router.push("/auth");
